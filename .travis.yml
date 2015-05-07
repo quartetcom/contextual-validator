@@ -8,3 +8,6 @@ php:
 script:
  - composer install --prefer-source
  - phpunit --coverage-text --coverage-clover=coverage.clover
+
+notifications:
+  slack: quartetcom:DcjYF22QWdZMWQ9k1ZyN6zK9
