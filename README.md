@@ -17,7 +17,7 @@
 ```php
 $builder = new ValidatorBuilder();
 $builder
-    ->default()
+    ->defaultContext()
         ->target('name')
             ->rule(new NotBlank())
         ->target('email')
