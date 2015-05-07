@@ -42,7 +42,7 @@ class ErrorInfo implements EntityInterface
      */
     public function merge(ErrorInfo $target)
     {
-        $this->error |= $target->error;
+        $this->error = $this->error || $target->error;
         $this->errors = array_merge($this->errors, $target->errors);
     }
 }

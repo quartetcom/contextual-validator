@@ -53,6 +53,16 @@ class ValidatorBuilder
     }
 
     /**
+     * @return ValidatorBuilder
+     */
+    public function defaultContext()
+    {
+        $this->currentContext = $context = new Context('default');
+        $this->contexts->add($context);
+        return $this;
+    }
+
+    /**
      * @param $f
      * @return ValidatorBuilder
      */
