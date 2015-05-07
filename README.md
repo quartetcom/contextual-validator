@@ -1,5 +1,11 @@
 # Contextual Validator
 
+[![Build Status](https://travis-ci.org/quartetcom/contextual-validator.svg?branch=master)](https://travis-ci.org/quartetcom/contextual-validator)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/c89d2296-dcd3-46c1-bbab-9b4d8a88573a/mini.png)](https://insight.sensiolabs.com/projects/c89d2296-dcd3-46c1-bbab-9b4d8a88573a)
+[![Total Downloads](https://poser.pugx.org/quartet/contextual-validator/downloads.png)](https://packagist.org/packages/quartet/contextual-validator)
+[![Latest Stable Version](https://poser.pugx.org/quartet/contextual-validator/v/stable.png)](https://packagist.org/packages/quartet/contextual-validator)
+[![Latest Unstable Version](https://poser.pugx.org/quartet/contextual-validator/v/unstable.png)](https://packagist.org/packages/quartet/contextual-validator)
+
 # Installation
 
     $ composer require quartet/contextual-validator
