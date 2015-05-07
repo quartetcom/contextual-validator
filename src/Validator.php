@@ -38,12 +38,26 @@ class Validator implements EntityInterface
      */
     public function validate($data)
     {
+        $errorInfo = new ErrorInfo();
+        $contexts = [];
+        $context = $this->selectDefaultContext();
+        if ($context) {
+            $contexts[] = $context;
+        }
         $context = $this->selectContext($data);
-        if (!$context) {
-            return new ErrorInfo();
+        if ($context) {
+            $contexts[] = $context;
         }
 
-        return $this->validateUnderContext($context, $data);
+        if (count($contexts) < 1) {
+            return $errorInfo;
+        }
+
+        foreach ($contexts as $context) {
+            $errorInfo->merge($this->validateUnderContext($context, $data));
+        }
+
+        return $errorInfo;
     }
 
     /**
@@ -55,6 +69,14 @@ class Validator implements EntityInterface
         $contextName = call_user_func($this->contextSelector, $data);
 
         return $this->contexts->get($contextName);
+    }
+
+    /**
+     * @return Context
+     */
+    protected function selectDefaultContext()
+    {
+        return $this->contexts->get('default');
     }
 
     /**
