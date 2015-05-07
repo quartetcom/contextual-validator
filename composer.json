@@ -1,0 +1,39 @@
+{
+    "name": "quartet/contextual-validator",
+    "description":" ",
+    "keywords":["validation"],
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "GOTO Hidenori",
+            "email": "hidenorigoto@gmail.com"
+        }
+    ],
+    "config":{
+        "bin-dir": "bin"
+    },
+    "autoload":{
+        "psr-4":{
+            "Quartet\\ContextualValidation\\": "src/"
+        }
+    },
+    "autoload-dev":{
+        "psr-4":{
+            "Quartet\\ContextualValidation\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    },
+    "require": {
+        "php": "~5.5",
+        "phpmentors/domain-kata": "~1.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.6"
+    }
+}
