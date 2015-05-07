@@ -28,10 +28,11 @@ class ValidatorFunctionalTest extends \PHPUnit_Framework_TestCase
             ->setContextSelector(function ($row) {
                 return $row['type'];
             })
-            ->context('normal')
+            ->default()
                 ->target('name')
                     ->rule(new NotBlank())
                     ->rule(new Length(['max'=>10]))
+            ->context('normal')
                 ->target('email')
                     ->rule(new NotBlank())
                     ->rule(new Length(['max'=>20]))
@@ -51,6 +52,8 @@ class ValidatorFunctionalTest extends \PHPUnit_Framework_TestCase
             [['type'=>'normal', 'name'=>'', 'email'=>''], true],
             [['type'=>'normal', 'name'=>'12345678901', 'email'=>'test@example.com'], true],
             [['type'=>'special', 'name'=>'', 'email'=>''], false],
+            [['type'=>'special', 'name'=>'test', 'email'=>''], true],
+            [['type'=>'special', 'name'=>'testtesttest', 'email'=>''], false],
         ];
     }
 }
