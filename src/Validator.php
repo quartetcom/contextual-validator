@@ -87,11 +87,9 @@ class Validator implements EntityInterface
     protected function validateUnderContext(Context $context, $data)
     {
         $errorInfo = new ErrorInfo();
-        foreach ($context->getTargets() as $targets) {
-            foreach ($targets as $target) {
-                $error = $this->validateUnderTarget($target, $data);
-                $errorInfo->merge($error);
-            }
+        foreach ($context->getTargets() as $target) {
+            $error = $this->validateUnderTarget($target, $data);
+            $errorInfo->merge($error);
         }
 
         return $errorInfo;
@@ -111,7 +109,10 @@ class Validator implements EntityInterface
             if (call_user_func($rule, $value, $data) === true) {
                 continue;
             }
-            $errorInfo->addError($rule->getMessage());
+            $errorInfo->addError([
+                'target'  => $target->getName(),
+                'message' => $rule->getMessage(),
+            ]);
         }
 
         return $errorInfo;

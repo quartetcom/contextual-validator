@@ -79,7 +79,6 @@ class ValidatorBuilder
     public function target($name)
     {
         $this->currentTarget = $target = new Target($name, $this->currentContext);
-        $this->currentContext->addTarget($target);
         return $this;
     }
 
@@ -99,5 +98,13 @@ class ValidatorBuilder
     public function getValidator()
     {
         return new Validator($this->contexts, $this->contextSelector);
+    }
+
+    /**
+     * @return ContextCollection
+     */
+    public function getStructure()
+    {
+        return $this->contexts;
     }
 }

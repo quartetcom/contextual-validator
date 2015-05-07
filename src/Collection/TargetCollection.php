@@ -23,7 +23,7 @@ class TargetCollection extends AbstractCollection
     public function add(EntityInterface $entity)
     {
         $this->assertType($entity);
-        $this->store[$entity->getId()][] = $entity;
+        $this->store[$entity->getId()] = $entity;
     }
 
     protected function assertType(EntityInterface $entity)
