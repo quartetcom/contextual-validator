@@ -10,6 +10,10 @@ class ErrorInfo implements EntityInterface
 {
     protected $error = false;
     protected $errors = [];
+    /**
+     * @var string
+     */
+    protected $id;
 
     /**
      * @param $target
@@ -44,5 +48,21 @@ class ErrorInfo implements EntityInterface
     {
         $this->error = $this->error || $target->error;
         $this->errors = array_merge($this->errors, $target->errors);
+    }
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }
