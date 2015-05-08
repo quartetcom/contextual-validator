@@ -13,6 +13,7 @@
 namespace Quartet\ContextualValidation;
 
 use Quartet\ContextualValidation\Collection\TargetCollection;
+use Quartet\ContextualValidation\Rule\F;
 use Quartet\ContextualValidation\Rule\Length;
 use Quartet\ContextualValidation\Rule\NotBlank;
 
@@ -72,6 +73,9 @@ class ValidatorFunctionalTest extends \PHPUnit_Framework_TestCase
                 ->target('email')
                     ->rule(new NotBlank())
                     ->rule(new Length(['max'=>20]))
+                    ->rule(new F(function($value, $row) {
+                        return strpos($value, '@') !== false;
+                    }, '@がありません'));
         ;
 
         return $builder;
@@ -83,15 +87,18 @@ class ValidatorFunctionalTest extends \PHPUnit_Framework_TestCase
     public function testErrorMessage()
     {
         $validator = $this->createValidator();
-        $data = ['type'=>'normal', 'name'=>'', 'email'=>'testtesttest@example.com'];
+        $data = ['type'=>'normal', 'name'=>'', 'email'=>'testtesttestexample.com'];
 
         $error = $validator->validate($data);
 
         $errors = $error->getErrors();
-        $this->assertThat($errors[0]['target'], $this->equalTo('name'));
-        $this->assertThat($errors[0]['message'], $this->equalTo('必須です'));
-        $this->assertThat($errors[1]['target'], $this->equalTo('email'));
-        $this->assertThat($errors[1]['message'], $this->equalTo('長さが20を超えています'));
+
+        $this->assertThat(count($errors['name']), $this->equalTo(1));
+        $this->assertThat($errors['name'][0], $this->equalTo('必須です'));
+        $this->assertThat(count($errors['email']), $this->equalTo(2));
+        $this->assertThat($errors['email'][0], $this->equalTo('長さが20を超えています'));
+        $this->assertThat($errors['email'][1], $this->equalTo('@がありません'));
+
     }
 
     /**
@@ -115,8 +122,9 @@ class ValidatorFunctionalTest extends \PHPUnit_Framework_TestCase
         $this->assertThat(count($targets), $this->equalTo(1));
         $target = $targets->get('email');
         $rules = $target->getRules();
-        $this->assertThat(count($rules), $this->equalTo(2));
+        $this->assertThat(count($rules), $this->equalTo(3));
         $this->assertThat($rules[0], $this->isInstanceOf(NotBlank::class));
         $this->assertThat($rules[1], $this->isInstanceOf(Length::class));
+        $this->assertThat($rules[2], $this->isInstanceOf(F::class));
     }
 }

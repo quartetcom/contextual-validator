@@ -14,6 +14,7 @@ namespace Quartet\ContextualValidation;
 
 use PHPMentors\DomainKata\Entity\EntityInterface;
 use Quartet\ContextualValidation\Collection\ContextCollection;
+use Quartet\ContextualValidation\Error\ErrorInfo;
 
 class Validator implements EntityInterface
 {
@@ -109,10 +110,9 @@ class Validator implements EntityInterface
             if (call_user_func($rule, $value, $data) === true) {
                 continue;
             }
-            $errorInfo->addError([
-                'target'  => $target->getName(),
-                'message' => $rule->getMessage(),
-            ]);
+            $errorInfo->addError($target->getName(),
+                $rule->getMessage()
+            );
         }
 
         return $errorInfo;
