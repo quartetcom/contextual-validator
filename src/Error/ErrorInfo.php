@@ -1,24 +1,24 @@
 <?php
-namespace Quartet\ContextualValidation;
+namespace Quartet\ContextualValidation\Error;
 
 use PHPMentors\DomainKata\Entity\EntityInterface;
 
+/**
+ * Errors occurred at one entity/row
+ */
 class ErrorInfo implements EntityInterface
 {
     protected $error = false;
     protected $errors = [];
 
-    public function __construct()
-    {
-    }
-
     /**
-     * @param $error
+     * @param $target
+     * @param $message
      */
-    public function addError($error)
+    public function addError($target, $message)
     {
         $this->error = true;
-        $this->errors[] = $error;
+        $this->errors[$target][] = $message;
     }
 
     /**
