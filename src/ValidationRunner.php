@@ -17,11 +17,11 @@ class ValidationRunner
     private $rowValidators;
     private $collectionValidators;
 
-    public function addRowValidator(ValidatorInterface $validator)
+    public function addRowValidator(Validator $validator)
     {
     }
 
-    public function addCollectionValidator(ValidatorInterface $validator)
+    public function addCollectionValidator(Validator $validator)
     {
     }
 }
