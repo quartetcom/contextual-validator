@@ -34,7 +34,7 @@ class Length implements RuleInterface
     public function __invoke($value, $row)
     {
         if (array_key_exists('max', $this->options)) {
-            return strlen($value) <= $this->options['max'];
+            return mb_strlen($value, 'UTF-8') <= $this->options['max'];
         }
     }
 
