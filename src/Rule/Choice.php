@@ -28,6 +28,9 @@ class Choice implements RuleInterface
     public function __construct($choice, $message = null)
     {
         $this->choice = $choice;
+        if ($message === null) {
+            $message = implode(',', $choice).'のみです';
+        }
         $this->message = $message;
     }
 
