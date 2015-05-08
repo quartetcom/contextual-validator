@@ -13,6 +13,7 @@
 namespace Quartet\ContextualValidation;
 
 use Quartet\ContextualValidation\Collection\ContextCollection;
+use Quartet\ContextualValidation\Error\ErrorInfo;
 use Quartet\ContextualValidation\Rule\NotBlank;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase
@@ -35,6 +36,29 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $errorInfo = $this->SUT->validate(['name'=>'test']);
 
         $this->assertThat($errorInfo->hasError(), $this->equalTo(false));
+    }
+
+    /**
+     * @test
+     */
+    public function testErrorInfo_normal()
+    {
+        $this->SUT->setContextSelector(function () { return 'testContext'; });
+        $result = $this->SUT->validate(['name'=>'test'], 3);
+        $this->assertThat($result, $this->isInstanceOf(ErrorInfo::class));
+        $this->assertThat($result->getId(), $this->equalTo(3));
+    }
+
+    /**
+     * @test
+     */
+    public function testErrorInfo_no_id()
+    {
+        $this->SUT->setContextSelector(function () { return 'testContext'; });
+        $result = $this->SUT->validate(['name'=>'test']);
+
+        $this->assertThat($result, $this->isInstanceOf(ErrorInfo::class));
+        $this->assertThat($result->getId(), $this->logicalNot($this->identicalTo(null)));
     }
 
     protected function setUp()

@@ -43,7 +43,7 @@ class Validator implements EntityInterface
     public function validate($data, $no = null)
     {
         $errorInfo = new ErrorInfo();
-        if ($no !== null) {
+        if ($no === null) {
             $no = $this->generateId();
         }
         $errorInfo->setId($no);
@@ -137,7 +137,7 @@ class Validator implements EntityInterface
     /**
      * @return int
      */
-    public function generateId()
+    private function generateId()
     {
         return $this->id++;
     }
