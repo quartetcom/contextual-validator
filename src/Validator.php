@@ -18,6 +18,8 @@ use Quartet\ContextualValidation\Error\ErrorInfo;
 
 class Validator implements EntityInterface
 {
+    private $id = 0;
+
     /**
      * @var ContextCollection
      */
@@ -35,11 +37,17 @@ class Validator implements EntityInterface
 
     /**
      * @param $data
+     * @param int $no
      * @return ErrorInfo
      */
-    public function validate($data)
+    public function validate($data, $no = null)
     {
         $errorInfo = new ErrorInfo();
+        if ($no !== null) {
+            $no = $this->generateId();
+        }
+        $errorInfo->setId($no);
+
         $contexts = [];
         $context = $this->selectDefaultContext();
         if ($context) {
@@ -124,5 +132,13 @@ class Validator implements EntityInterface
     public function setContextSelector($f)
     {
         $this->contextSelector = $f;
+    }
+
+    /**
+     * @return int
+     */
+    public function generateId()
+    {
+        return $this->id++;
     }
 }
