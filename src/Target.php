@@ -26,10 +26,18 @@ class Target implements EntityInterface
      */
     private $rules = [];
 
-    public function __construct($name, Context $context)
+    /**
+     * @var string
+     */
+    private $accessor;
+
+    public function __construct($name, Context $context, $accessor = null)
     {
         $this->name = $name;
-
+        if ($accessor === null) {
+            $accessor = $name;
+        }
+        $this->accessor = $accessor;
         $context->addTarget($this);
     }
 
@@ -60,5 +68,13 @@ class Target implements EntityInterface
     public function getRules()
     {
         return $this->rules;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccessor()
+    {
+        return $this->accessor;
     }
 }

@@ -15,6 +15,7 @@ namespace Quartet\ContextualValidation;
 use PHPMentors\DomainKata\Entity\EntityInterface;
 use Quartet\ContextualValidation\Collection\ContextCollection;
 use Quartet\ContextualValidation\Error\ErrorInfo;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 class Validator implements EntityInterface
 {
@@ -28,11 +29,16 @@ class Validator implements EntityInterface
      * @var \Callable
      */
     private $contextSelector;
+    /**
+     * @var PropertyAccessor
+     */
+    private $accessor;
 
-    public function __construct(ContextCollection $contexts, $contextSelector = null)
+    public function __construct(ContextCollection $contexts, $contextSelector = null, PropertyAccessor $accessor)
     {
         $this->contexts = $contexts;
         $this->contextSelector = $contextSelector;
+        $this->accessor = $accessor;
     }
 
     /**
@@ -111,7 +117,7 @@ class Validator implements EntityInterface
      */
     protected function validateUnderTarget(Target $target, $data)
     {
-        $value = $data[$target->getName()];
+        $value = $this->accessor->getValue($data, $target->getAccessor());
 
         $errorInfo = new ErrorInfo();
         foreach ($target->getRules() as $rule) {
