@@ -13,6 +13,8 @@
 namespace Quartet\ContextualValidation;
 
 use Quartet\ContextualValidation\Collection\ContextCollection;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 class ValidatorBuilder
 {
@@ -35,10 +37,19 @@ class ValidatorBuilder
      * @var Target
      */
     private $currentTarget;
+    /**
+     * @var PropertyAccessor
+     */
+    private $accessor;
 
-    public function __construct()
+    public function __construct(PropertyAccessor $accessor = null)
     {
         $this->contexts = new ContextCollection();
+
+        if ($accessor === null) {
+            $accessor = PropertyAccess::createPropertyAccessor();
+        }
+        $this->accessor = $accessor;
     }
 
     /**
@@ -83,6 +94,16 @@ class ValidatorBuilder
     }
 
     /**
+     * @param string $name
+     * @return ValidatorBuilder
+     */
+    public function targetColumn($name)
+    {
+        $this->currentTarget = $target = new Target($name, $this->currentContext, sprintf('[%s]',$name));
+        return $this;
+    }
+
+    /**
      * @param RuleInterface $rule
      * @return ValidatorBuilder
      */
@@ -97,7 +118,7 @@ class ValidatorBuilder
      */
     public function getValidator()
     {
-        return new Validator($this->contexts, $this->contextSelector);
+        return new Validator($this->contexts, $this->contextSelector, $this->accessor);
     }
 
     /**

@@ -15,6 +15,7 @@ namespace Quartet\ContextualValidation;
 use Quartet\ContextualValidation\Collection\ContextCollection;
 use Quartet\ContextualValidation\Error\ErrorInfo;
 use Quartet\ContextualValidation\Rule\NotBlank;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -63,11 +64,13 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+        $accessor = PropertyAccess::createPropertyAccessor();
         $this->contextCollection = new ContextCollection();
-        $this->SUT = new Validator($this->contextCollection, null);
+        $this->SUT = new Validator($this->contextCollection, null, $accessor);
 
         $this->contextCollection->add($context = new Context('testContext'));
-        $target = new Target('name', $context);
+        $target = new Target('name', $context, '[name]');
         $target->addRule(new NotBlank());
+
     }
 }

@@ -66,11 +66,11 @@ class ValidatorFunctionalTest extends \PHPUnit_Framework_TestCase
                 return $row['type'];
             })
             ->defaultContext()
-                ->target('name')
+                ->targetColumn('name')
                     ->rule(new NotBlank())
                     ->rule(new Length(['max'=>10]))
             ->context('normal')
-                ->target('email')
+                ->targetColumn('email')
                     ->rule(new NotBlank())
                     ->rule(new Length(['max'=>20]))
                     ->rule(new F(function($value, $row) {
