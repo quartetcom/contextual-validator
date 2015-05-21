@@ -74,6 +74,14 @@ class ValidatorBuilder
     }
 
     /**
+     * @return Callable
+     */
+    public function getContextSelector()
+    {
+        return $this->contextSelector;
+    }
+
+    /**
      * @param $f
      * @return ValidatorBuilder
      */
