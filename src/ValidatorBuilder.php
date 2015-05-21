@@ -97,7 +97,7 @@ class ValidatorBuilder
      */
     public function target($name)
     {
-        $this->currentTarget = $target = new Target($name, $this->currentContext);
+        $this->currentTarget = new Target($name, $this->currentContext);
         return $this;
     }
 
@@ -107,7 +107,7 @@ class ValidatorBuilder
      */
     public function targetColumn($name)
     {
-        $this->currentTarget = $target = new Target($name, $this->currentContext, sprintf('[%s]',$name));
+        $this->currentTarget = new Target($name, $this->currentContext, sprintf('[%s]',$name));
         return $this;
     }
 
