@@ -21,4 +21,14 @@ class ErrorInfoCollection extends AbstractCollection
     {
         assert($entity instanceof ErrorInfo);
     }
+
+    public function add(EntityInterface $entity)
+    {
+        $this->assertType($entity);
+        if (array_key_exists($entity->getId(), $this->store)) {
+            $this->store[$entity->getId()]->merge($entity);
+        } else {
+            $this->store[$entity->getId()] = $entity;
+        }
+    }
 }
