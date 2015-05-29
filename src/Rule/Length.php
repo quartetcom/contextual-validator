@@ -28,6 +28,9 @@ class Length implements RuleInterface
     public function __construct($options, $message = null)
     {
         $this->options = $options;
+        if ($message === null) {
+            $message = '長さが'.$this->options['max'].'を超えています';
+        }
         $this->message = $message;
     }
 
@@ -43,6 +46,6 @@ class Length implements RuleInterface
      */
     public function getMessage()
     {
-        return '長さが'.$this->options['max'].'を超えています';
+        return $this->message;;
     }
 }
