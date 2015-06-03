@@ -10,4 +10,9 @@ interface RuleInterface
      * @return string
      */
     public function getMessage();
+
+    /**
+     * @param string $message
+     */
+    public function setMessage($message);
 }

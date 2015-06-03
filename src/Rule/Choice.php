@@ -12,14 +12,8 @@
 
 namespace Quartet\ContextualValidation\Rule;
 
-use Quartet\ContextualValidation\RuleInterface;
-
-class Choice implements RuleInterface
+class Choice extends AbstractRule
 {
-    /**
-     * @var null
-     */
-    private $message;
     /**
      * @var array
      */
@@ -37,13 +31,5 @@ class Choice implements RuleInterface
     public function __invoke($value, $row)
     {
         return in_array($value, $this->choice, true);
-    }
-
-    /**
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->message;
     }
 }

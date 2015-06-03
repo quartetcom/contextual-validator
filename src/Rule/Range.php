@@ -12,22 +12,19 @@
 
 namespace Quartet\ContextualValidation\Rule;
 
-use Quartet\ContextualValidation\RuleInterface;
-
-class Range implements RuleInterface
+class Range extends AbstractRule
 {
     /**
      * @var
      */
     private $options;
-    /**
-     * @var
-     */
-    private $message;
 
     public function __construct($options, $message = null)
     {
         $this->options = $options;
+        if ($message === null) {
+            $message = $this->options['max'].'以下で指定してください';
+        }
         $this->message = $message;
     }
 
@@ -36,13 +33,5 @@ class Range implements RuleInterface
         if (array_key_exists('max', $this->options)) {
             return $value <= $this->options['max'];
         }
-    }
-
-    /**
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->options['max'].'以下で指定してください';
     }
 }

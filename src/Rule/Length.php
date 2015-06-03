@@ -12,18 +12,12 @@
 
 namespace Quartet\ContextualValidation\Rule;
 
-use Quartet\ContextualValidation\RuleInterface;
-
-class Length implements RuleInterface
+class Length extends AbstractRule
 {
     /**
      * @var
      */
     private $options;
-    /**
-     * @var
-     */
-    private $message;
 
     public function __construct($options, $message = null)
     {
@@ -39,13 +33,5 @@ class Length implements RuleInterface
         if (array_key_exists('max', $this->options)) {
             return mb_strlen($value, 'UTF-8') <= $this->options['max'];
         }
-    }
-
-    /**
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->message;;
     }
 }

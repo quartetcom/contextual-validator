@@ -12,21 +12,28 @@
 
 namespace Quartet\ContextualValidation\Rule;
 
-class F extends AbstractRule
+use Quartet\ContextualValidation\RuleInterface;
+
+class AbstractRule implements RuleInterface
 {
     /**
-     * @var \Callable
+     * @var string
      */
-    private $f;
+    protected $message;
 
-    public function __construct($f, $message)
+    /**
+     * {@inheritdoc}
+     */
+    public function getMessage()
     {
-        $this->message = $message;
-        $this->f = $f;
+        return $this->message;
     }
 
-    public function __invoke($value, $row)
+    /**
+     * {@inheritdoc}
+     */
+    public function setMessage($message)
     {
-        return call_user_func($this->f, $value, $row, $this);
+        $this->message = $message;
     }
 }

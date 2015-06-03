@@ -12,30 +12,18 @@
 
 namespace Quartet\ContextualValidation\Rule;
 
-use Quartet\ContextualValidation\RuleInterface;
-
-class NotBlank implements RuleInterface
+class NotBlank extends AbstractRule
 {
-    /**
-     * @var null
-     */
-    private $message;
-
     public function __construct($message = null)
     {
+        if ($message === null) {
+            $message = '必須です';
+        }
         $this->message = $message;
     }
 
     public function __invoke($value, $row)
     {
         return !empty($value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getMessage()
-    {
-        return '必須です';
     }
 }
