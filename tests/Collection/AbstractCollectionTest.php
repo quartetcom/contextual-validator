@@ -138,6 +138,35 @@ class AbstractCollectionTest extends \PHPUnit_Framework_TestCase
         $this->assertThat($result[2]->name, $this->equalTo('test3'));
     }
 
+    /**
+     * @test
+     */
+    public function testMergeNumericIndex()
+    {
+        $collection1 = new TestCollection();
+        $collection1->add(new Data(10));
+
+        $collection2 = new TestCollection();
+        $collection2->add(new Data(20));
+        $collection2->add(new Data(30));
+
+        $this->assertThat(count($collection1), $this->equalTo(1));
+        $this->assertThat(count($collection2), $this->equalTo(2));
+
+        $collection1->merge($collection2);
+        $this->assertThat(count($collection1), $this->equalTo(3));
+        $this->assertThat(count($collection2), $this->equalTo(2));
+
+        $result = [];
+        foreach ($collection1 as $key=>$line)
+        {
+            $result[$key] = $line;
+        }
+        $this->assertThat($result[10]->name, $this->equalTo(10));
+        $this->assertThat($result[20]->name, $this->equalTo(20));
+        $this->assertThat($result[30]->name, $this->equalTo(30));
+    }
+
     protected function setUp()
     {
         $this->SUT = new TestCollection();
