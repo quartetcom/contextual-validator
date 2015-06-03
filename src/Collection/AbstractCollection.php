@@ -69,7 +69,7 @@ abstract class AbstractCollection implements EntityCollectionInterface
      */
     public function merge(AbstractCollection $target)
     {
-        $this->store = array_merge($this->store, $target->store);
+        $this->store = $this->store + $target->store;
     }
 
     /**
