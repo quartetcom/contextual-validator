@@ -8,7 +8,7 @@
 
 # Installation
 
-    $ composer require quartet/contextual-validator
+    $ php composer.phar require quartet/contextual-validator
 
 # Usage
 

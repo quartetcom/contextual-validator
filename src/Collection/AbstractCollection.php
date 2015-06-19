@@ -76,4 +76,12 @@ abstract class AbstractCollection implements EntityCollectionInterface
      * @param EntityInterface $entity
      */
     abstract protected function assertType(EntityInterface $entity);
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->store;
+    }
 }
