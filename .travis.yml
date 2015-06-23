@@ -1,13 +1,11 @@
 language: php
-
 php:
-  - 5.5
-  - 5.6
-  - hhvm
-
+- 5.5
+- 5.6
+- hhvm
 script:
- - composer install --prefer-source
- - phpunit --coverage-text --coverage-clover=coverage.clover
-
+- composer install --prefer-source
+- phpunit --coverage-text --coverage-clover=coverage.clover
 notifications:
-  slack: quartetcom:DcjYF22QWdZMWQ9k1ZyN6zK9
+  slack:
+    secure: DTYABtoZIjAHFhCVmV4BLtJwUKhKLLolU9VQGAcY0hiBZ4XxjjfPWJXZwNFp+XVODpbZFqUxkQszbqNy4FbwhdgBhUHFlAWqnN0EkOn0bmDIl//aLJRt9gS6o6QHUmGT9LNPaGVDL0tfrq0RCvOl1h3Q9l3Kia8v38bTRZjUmkDyc5KmEr2ypBpFGBsF6fz2mX9+q7i4Wq3Zh6l0Kctm+fy+FHh3S88+i+xRPdCBxIFFC8qur08UbCAZcSuTky361gCXuEo4H0IsgN4EQsTTY1vxSCMBF0oRZUCu2hrmFJtMZlIif5rcXprGI01GLHDpbVPOQaOrCxXneFDBR+hUqIKlbhlUnDp68xicFoC2GA/UFWmLyQcqe8Zu/vATTzisFGMtVBknynEZnrpWj/Q47LiqR6lKs1pcvd3Y7zIq2u/THlZKzraayJ74yUS2ipXF4pGwxaGj9+kFNdTnZVweuXZbV5atR8gL6++73Z1y3fdsVJwpg1gYlNxiKPYgClIBpURkBPLZhFaTd+EbAkgo5LO3nycG6m7WWwPZjdbhegSIe+tZl7/bJQzsxGb69Xwn0S5Fl2WoGMsxqIkbZtp/rq6b0vN1+yFr5OP+asqxCb5Rut2YRh9oAwn15gsGdQvx1/MAoRUjRsE5e8KyukNrweoDUetDyRPMnogfvNYp4y4=
